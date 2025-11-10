@@ -126,15 +126,6 @@ sqlite> SELECT * FROM todos;
 
 ---
 
-## 🧑‍💻 Author
-
-**Iman Aboheydary**
-- 🏙️ Frankfurt, Germany
-- 💼 Developer at CustomGento & Founder of فارسی کیت
-- 🌐 [I.MAN.News on Instagram](https://instagram.com/I.MAN.News)
-
----
-
 ## 📄 License
 
 This project is open-source under the [MIT License](LICENSE).
