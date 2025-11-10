@@ -1,7 +1,7 @@
 package todo
 
-// Todo represents a single task
 type Todo struct {
+	ID   int
 	Task string
 	Done bool
 }
