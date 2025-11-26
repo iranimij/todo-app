@@ -2,40 +2,6 @@
 
 A full-stack todo application with a Go backend (REST API + CLI) and React + TypeScript frontend.
 
-## Project Structure
-
-```
-todo-app/
-├── backend/              # Go backend
-│   ├── api/             # REST API handlers (with CORS support)
-│   │   └── handler.go   # HTTP handlers for all endpoints
-│   ├── todo/            # Business logic and database
-│   │   ├── todo.go      # Todo struct with JSON tags
-│   │   └── service.go   # Database operations (SQLite)
-│   ├── ui/              # CLI interface
-│   │   └── cli.go       # Interactive command-line menu
-│   ├── main.go          # Entry point (auto-detects interactive mode)
-│   ├── go.mod           # Go module definition
-│   └── todo.db          # SQLite database (auto-created)
-│
-└── frontend/            # React + TypeScript frontend
-    ├── src/
-    │   ├── components/  # React components
-    │   │   ├── AddTodoForm.tsx
-    │   │   ├── TodoItem.tsx
-    │   │   └── TodoList.tsx
-    │   ├── services/    # API service layer
-    │   │   └── api.ts   # Backend API client
-    │   ├── types/       # TypeScript interfaces
-    │   │   └── todo.ts  # Todo type definitions
-    │   ├── App.tsx      # Main application component
-    │   ├── main.tsx     # React entry point
-    │   └── index.css    # Styling
-    ├── vite.config.ts   # Vite config with API proxy
-    ├── package.json     # NPM dependencies
-    └── index.html       # HTML template
-```
-
 ## Features
 
 ✅ **Three Ways to Interact:**
