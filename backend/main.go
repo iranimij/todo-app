@@ -6,6 +6,8 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"os/exec"
+	"path/filepath"
 
 	"todo-app/api"
 	"todo-app/todo"
@@ -23,6 +25,9 @@ func main() {
 	isInteractive := (fileInfo.Mode() & os.ModeCharDevice) != 0
 
 	if isInteractive {
+		// Setup and start frontend automatically
+		setupAndStartFrontend()
+
 		// Start API server in background goroutine with ready channel
 		ready := make(chan string)
 		go startAPIServerAsync(ready)
@@ -40,6 +45,50 @@ func main() {
 		// Just run API server (non-interactive mode)
 		fmt.Println("Running in non-interactive mode (API only)")
 		startAPIServer()
+	}
+}
+
+func setupAndStartFrontend() {
+	// Get frontend directory path (relative to backend)
+	frontendDir := filepath.Join("..", "frontend")
+
+	// Check if frontend directory exists
+	if _, err := os.Stat(frontendDir); os.IsNotExist(err) {
+		fmt.Println("⚠️  Frontend directory not found, skipping frontend setup")
+		return
+	}
+
+	// Check if node_modules exists
+	nodeModulesPath := filepath.Join(frontendDir, "node_modules")
+	if _, err := os.Stat(nodeModulesPath); os.IsNotExist(err) {
+		fmt.Println("📦 Installing frontend dependencies...")
+		fmt.Println("   This may take a minute on first run...")
+
+		// Run npm install
+		cmd := exec.Command("npm", "install")
+		cmd.Dir = frontendDir
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+
+		if err := cmd.Run(); err != nil {
+			fmt.Printf("⚠️  Failed to install frontend dependencies: %v\n", err)
+			fmt.Println("   You can manually run: cd ../frontend && npm install")
+			return
+		}
+
+		fmt.Println("✅ Frontend dependencies installed!")
+		fmt.Println()
+	}
+
+	// Start frontend dev server in background
+	fmt.Println("🚀 Starting frontend dev server...")
+	cmd := exec.Command("npm", "run", "dev")
+	cmd.Dir = frontendDir
+
+	// Start in background
+	if err := cmd.Start(); err != nil {
+		fmt.Printf("⚠️  Failed to start frontend dev server: %v\n", err)
+		fmt.Println("   You can manually run: cd ../frontend && npm run dev")
 	}
 }
 

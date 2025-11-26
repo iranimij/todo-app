@@ -17,7 +17,9 @@ A full-stack todo application with a Go backend (REST API + CLI) and React + Typ
 - Real-time sync across all interfaces
 
 ✅ **Technical Features:**
+- One-command setup (auto-installs dependencies)
 - Automatic port detection (tries 8080-8089)
+- Auto-starts frontend dev server
 - CORS enabled for API
 - Interactive/non-interactive mode detection
 - TypeScript type safety
@@ -27,53 +29,58 @@ A full-stack todo application with a Go backend (REST API + CLI) and React + Typ
 
 ### Prerequisites
 - **Backend:** Go 1.24.6 or higher
-- **Frontend:** Node.js 18+ and npm
+- **Frontend:** Node.js 18+ and npm (will auto-install dependencies)
 - SQLite3 (included with Go)
 
-### Running the Application
+### One Command Setup! 🚀
 
-**Option 1: Run Both (Recommended)**
+Just run this in your terminal:
 
-1. **Start Backend** (in terminal 1):
-   ```bash
-   cd backend
-   go run .
-   ```
+```bash
+cd backend
+go run .
+```
 
-   You'll see:
-   ```
-   🌐 Web Interface: http://localhost:3000
+**That's it!** The app will:
+1. ✅ Automatically install frontend dependencies (first run only)
+2. ✅ Start the frontend dev server
+3. ✅ Start the backend API
+4. ✅ Launch the interactive CLI
 
-   📋 To-Do List (SQLite)
-   ----------------------------
-   1. Add task
-   2. List tasks
-   3. Mark task as done
-   4. Delete task
-   5. Exit
-   Choose an option:
-   ```
+You'll see:
+```
+📦 Installing frontend dependencies...
+   This may take a minute on first run...
+✅ Frontend dependencies installed!
 
-2. **Start Frontend** (in terminal 2):
-   ```bash
-   cd frontend
-   npm install  # First time only
-   npm run dev
-   ```
+🚀 Starting frontend dev server...
 
-3. **Access the App:**
-   - Web UI: Open `http://localhost:3000` in your browser
-   - CLI: Use the menu in terminal 1
-   - API: Available at `http://localhost:8080` (or next available port)
+🌐 Web Interface: http://localhost:3000
 
-**Option 2: API Only (Non-interactive)**
+📋 To-Do List (SQLite)
+----------------------------
+1. Add task
+2. List tasks
+3. Mark task as done
+4. Delete task
+5. Exit
+Choose an option:
+```
+
+### Access the App
+
+- **Web UI:** Open `http://localhost:3000` in your browser
+- **CLI:** Use the interactive menu in the terminal
+- **API:** Available at `http://localhost:8080` (or next available port)
+
+### Alternative: API Only Mode
+
+To run only the API server without CLI or frontend:
 
 ```bash
 cd backend
 go run . < /dev/null
 ```
-
-This runs only the API server without the CLI interface.
 
 ## Backend (Go)
 
@@ -182,9 +189,19 @@ CREATE TABLE todos (
 
 ## Troubleshooting
 
+**"npm: command not found" error?**
+- Make sure Node.js and npm are installed
+- Install from: https://nodejs.org/
+- Verify with: `npm --version`
+
 **Port already in use?**
 - The backend automatically tries ports 8080-8089
 - Check which port it selected in the startup message
+
+**Frontend dependencies not installing?**
+- The backend will show an error if npm install fails
+- You can manually run: `cd ../frontend && npm install`
+- Check that you have write permissions in the frontend directory
 
 **Frontend can't connect to API?**
 - Ensure backend is running first
